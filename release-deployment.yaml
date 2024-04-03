@@ -19,9 +19,9 @@ spec:
     spec:
       containers:
 <<<<<<< HEAD
-      - image: shubh9975/images:v1.4.0
+      - image: v1.6.0
 =======
-      - image: shubh9975/images:shubh9975/images:1b9d003
+      - image: v1.6.0
 >>>>>>> 5c7598a94488281cde44e79ed52fa3811fe2b21b
         name: flaskdemo
         resources: {}
