@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: flaskdemo
+  name: flaskdemo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flaskdemo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: flaskdemo
+    spec:
+      containers:
+<<<<<<< HEAD
+      - image: shubh9975/images:v1.4.0
+=======
+      - image: shubh9975/images:shubh9975/images:1b9d003
+>>>>>>> 5c7598a94488281cde44e79ed52fa3811fe2b21b
+        name: flaskdemo
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service
+  labels:
+    app: flask-service
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 30001
+    port: 80
+    targetPort: 5000
+  selector:
+    app: flaskdemo
