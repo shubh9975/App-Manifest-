@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-sync-job
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - name: post-sync-job
+        image: <your_image_with_post_sync_script>
+        command: ["/bin/sh", "-c", "postsync.sh"]
+        # You can mount any necessary volumes or environment variables here
+        # volumeMounts:
+        # - name: volume-name
+        #   mountPath: /mount/path
+      restartPolicy: Never
