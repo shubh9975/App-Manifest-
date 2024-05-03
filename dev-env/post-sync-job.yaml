@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: post-sync-job
-        image: <your_image_with_post_sync_script>
+        image: shubh9975/images:dcf1fda
         command: ["/bin/sh", "-c", "postsync.sh"]
         # You can mount any necessary volumes or environment variables here
         # volumeMounts:
