@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flaskdemo
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/shubh9975/App-Manifest-
+    targetRevision: test
+    path: dev-env/dev-deployment.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  postSync:
+    resources:
+    - group: batch
+      kind: Job
+      name: post-sync-job
+      namespace: default
+      manifest: |
+        apiVersion: batch/v1
+        kind: Job
+        metadata:
+          name: post-sync-job
+        spec:
+          template:
+            spec:
+              containers:
+              - name: post-sync-job
+                image: shubh9975/images:dcf1fda
+                command: ["/bin/sh", "-c", "postsync.sh"]
+                # You can mount any necessary volumes or environment variables here
+                # volumeMounts:
+                # - name: volume-name
+                #   mountPath: /mount/path
+              restartPolicy: Never
