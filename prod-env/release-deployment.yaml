@@ -37,3 +37,33 @@ spec:
     targetPort: 5000
   selector:
     app: flaskdemo
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flaskdemo
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  project: default
+  source:
+    path: .
+    repoURL: git@github.com:shubh9975/App-Manifest-.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - Validate=false
+  hooks:
+  - postSync:
+      object:
+        kind: Deployment
+        name: flaskdemo
+      command:
+        - /bin/bash
+        - -c
+        - |
+          ./post-sync-hook.sh
+
