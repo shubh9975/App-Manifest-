@@ -65,4 +65,4 @@ spec:
         - /bin/bash
         - -c
         - |
-          ./post-sync-hook.sh
+          ./prod-env/post-sync-hook.sh
