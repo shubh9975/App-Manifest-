@@ -3,45 +3,45 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: flaskdemo
-  name: flaskdemo
+    app: nginx
+  name: nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flaskdemo
+      app: nginx
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: flaskdemo
+        app: nginx
     spec:
       containers:
-      - image: shubh9975/images:v1.2.6
-        name: flaskdemo
+      - image: nginx:latest
+        name: nginx
         resources: {}
 status: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-service
+  name: nginx-service
   labels:
-    app: flask-service
+    app: nginx-service
 spec:
   type: NodePort
   ports:
-  - nodePort: 30001
+  - nodePort: 30002
     port: 80
-    targetPort: 5000
+    targetPort: 80
   selector:
-    app: flaskdemo
+    app: nginx
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: flaskdemo
+  name: nginx-app
 spec:
   destination:
     server: https://kubernetes.default.svc
@@ -60,10 +60,9 @@ spec:
   - postSync:
       object:
         kind: Deployment
-        name: flaskdemo
+        name: nginx
       command:
         - /bin/bash
         - -c
         - |
           ./post-sync-hook.sh
-
