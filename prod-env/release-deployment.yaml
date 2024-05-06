@@ -45,7 +45,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: ola
   project: default
   source:
     path: .
